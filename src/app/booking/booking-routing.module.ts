@@ -1,25 +1,14 @@
-import { HomeComponent } from './../home/home/home.component';
-import { BookVehicleComponent } from './book-vehicle/book-vehicle.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BookVehicleComponent } from './book-vehicle/book-vehicle.component';
+import { BookingGuard } from './guards/booking.guard';
 
 const routes: Routes = [
-  {
-    path:'book-vehicle',
-    pathMatch:'full',
-    component:BookVehicleComponent,
-    children:[
-      {
-        path:'**',
-        pathMatch:'full',
-        component:HomeComponent, 
-      }
-    ]
-  }
+    { path: 'book-vehicle', pathMatch: 'full', component: BookVehicleComponent, canActivate: [BookingGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class BookingRoutingModule { }
